@@ -15,6 +15,19 @@
 3: Абстрактный базовый класс
 
  ## instanceof vs getClass()
+instanceof:  
+• Проверяет "is-a" relationship  
+• Возвращает true для подклассов  
+• Учитывает наследование  
+• Безопасен для null (возвращает false)
+
+getClass():  
+• Проверяет точный тип  
+• Возвращает false для подклассов  
+• Не учитывает наследование  
+• NullPointerException для null
+
+
 Правило Joshua Bloch:  
 Если класс не final и вы допускаете наследование — используйте getClass().  
 Если класс final или не для наследования — можно instanceof.
