@@ -23,7 +23,7 @@ class _501 {
         findMode2(root);
     }
     
-    // обход в глубину
+    // обход в ширину
     public static int[] findMode(TreeNode root) {
         if (root == null) return new int[0];
 
