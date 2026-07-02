@@ -23,7 +23,7 @@
 Вызов конструктора  
 Raw bean object создан  
 
-### 4. Заполнение зависимостей (Populate)  
+### 4. Заполнение зависимостей (Dependency Injection)  
 @Autowired, @Value  
 Setter injection  
 
