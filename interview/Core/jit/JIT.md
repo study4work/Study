@@ -1,6 +1,6 @@
 JIT (Just-In-Time compilation) — это компиляция “на лету” во время работы программы.
 
-Традиционная компиляция (AOT - Ahead Of Time):
+Традиционная компиляция:
 Java Source → Compiler → Bytecode (.class)
 JIT-компиляция (во время выполнения):
 Bytecode → JIT Compiler → Native Code
