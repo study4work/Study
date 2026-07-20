@@ -143,3 +143,39 @@ public void deleteUser(Long id) {
 // При коммите транзакции выполнится DELETE FROM users WHERE id = ?
 ```
 После коммита транзакции сущность переходит в состояние transient (или остается removed, зависит от реализации).
+
+## Persistence Context (Контекст персистентности)
+Это ключевая концепция, связанная с managed состоянием.
+Что это: Кэш первого уровня (L1 cache), который хранит все managed сущности в рамках одного EntityManager (или Session).
+
+```java
+@Transactional
+public void demonstratePersistenceContext() {
+    User user1 = entityManager.find(User.class, 1L);
+    // Hibernate сделал SELECT, сохранил user1 в persistence context
+    
+    User user2 = entityManager.find(User.class, 1L);
+    // Hibernate НЕ делал SELECT!
+    // Он вернул тот же объект из persistence context
+    
+    System.out.println(user1 == user2); // true! Это один и тот же объект в памяти
+}
+```
+
+Зачем это нужно:  
+Идентичность: Гарантирует, что в рамках одной транзакции одна и та же сущность   представлена одним объектом.  
+Производительность: Избегает повторных запросов к БД.  
+Dirty checking: Позволяет отслеживать изменения.  
+
+Проблемы:
+```java
+@Transactional
+public void loadManyUsers() {
+    // Загрузили 10 000 пользователей
+    List<User> users = entityManager.createQuery("SELECT u FROM User u").getResultList();
+    // Все 10 000 сущностей в persistence context
+    // Это занимает много памяти!
+    
+    // Решение: использовать pagination или stateless session
+}
+```

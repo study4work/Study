@@ -1,1 +1,1 @@
-### [Что такое JIT?](../../interview/Core/jit/JIT.md)
+### [Что такое JIT?](comparators/JIT.md)
