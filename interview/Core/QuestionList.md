@@ -1,1 +1,1 @@
-### [Что такое JIT?](comparators/JIT.md)
+### [Что такое JIT?](compilatrators/JIT.md)
