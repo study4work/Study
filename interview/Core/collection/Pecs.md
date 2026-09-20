@@ -10,27 +10,59 @@ Eсли у нас есть некая коллекция, типизирован
 • Используем <? extends T>  
 • Можно только get()
 
-Компилятор не знает точный тип коллекции.
+```java
+// Метод суммирует числа из списка
+public static double sum(List<? extends Number> numbers) {
+    double sum = 0;
+    for (Number n : numbers) {  // ✅ Можем читать как Number
+        sum += n.doubleValue();
+    }
+    return sum;
+}
 
-List<? extends Number> может быть:  
-• List<Integer>  
-• List<Double>  
-• List<Float> 
+// Использование
+List<Integer> integers = Arrays.asList(1, 2, 3);
+List<Double> doubles = Arrays.asList(1.5, 2.5, 3.5);
 
-Если добавить Double в List<Integer> — нарушение типа!
-Поэтому компилятор запрещает любую запись (кроме null).
+System.out.println(sum(integers));  // 6.0 ✅
+System.out.println(sum(doubles));   // 7.5 ✅
+
+// numbers.add(42);  // ❌ ОШИБКА! Нельзя добавлять (кроме null)
+// Потому что мы не знаем точный тип: Integer? Double? Float?
+```
 
 ## Consumer Super:
 • Если параметр потребляет данные (пишем)  
 • Используем <? super T>  
 • Можно только put()
 
-Компилятор не знает точный тип коллекции.
+```java
+// Метод добавляет числа в список
+public static void addNumbers(List<? super Integer> list) {
+    list.add(1);   // ✅ Можем добавлять Integer
+    list.add(2);   // ✅ Можем добавлять Integer
+    list.add(3);   // ✅ Можем добавлять Integer
+    
+    // Integer i = list.get(0);  // ❌ ОШИБКА! Нельзя читать как Integer
+    // Потому что список может быть List<Number>, List<Object>
+    // Мы знаем только, что это супертип Integer
+}
 
-List<? super Integer> может быть:  
-• List<Integer>  
-• List<Number>  
-• List<Object>
+// Использование
+List<Integer> integers = new ArrayList<>();
+List<Number> numbers = new ArrayList<>();
+List<Object> objects = new ArrayList<>();
 
-При чтении из List<Object> получим Object, не Integer.  
-Поэтому компилятор возвращает только Object.
+addNumbers(integers);  // ✅ OK
+addNumbers(numbers);   // ✅ OK
+addNumbers(objects);   // ✅ OK
+
+// После вызова:
+System.out.println(integers);  // [1, 2, 3]
+System.out.println(numbers);   // [1, 2, 3]
+System.out.println(objects);   // [1, 2, 3]
+```
+
+**Реальные примеры из JDK**  
+Collections.copy()
+Collections.addAll()
