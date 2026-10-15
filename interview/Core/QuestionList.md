@@ -1,1 +1,0 @@
-### [Что такое JIT?](compilatrators/JIT.md)

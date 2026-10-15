@@ -1,3 +1,5 @@
+![img.png](/src/main/resources/images/javaReference.png)
+
 ##  Strong Reference
 В Java есть Strong Reference (сильная ссылка) — это то, что мы пишем каждый день: Object obj = new Object(). Пока есть сильная ссылка, GC никогда не удалит объект.  
 
